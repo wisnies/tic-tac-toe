@@ -1,0 +1,30 @@
+{
+  "React Functional Component without props": {
+    "prefix": "rfc",
+    "body": [
+      "export const $1:React.FC = () => {",
+      "   return (",
+      "       <div>$1 Component</div>",
+      "   )",
+      "}",
+      ""
+    ],
+    "description": "Functional Component without props"
+  },
+  "React Functional Component with props": {
+    "prefix": "rfcp",
+    "body": [
+      "type $1Props = {",
+      "  $2: $3",
+      "}",
+      "",
+      "export const $1:React.FC<$1Props> = ({$2}:$1Props) => {",
+      "  return (",
+      "    <div>$1 Component</div>",
+      "  )",
+      "}",
+      ""
+    ],
+    "description": "Functional Component with props"
+  }
+}
