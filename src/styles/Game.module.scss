@@ -1,0 +1,25 @@
+@import 'colors';
+@import 'mixins';
+@import 'sizes';
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-gap: 3px;
+
+  @media screen and (min-width: $mobileL) {
+    grid-gap: 5px;
+  }
+}
+
+.square {
+  background-color: $white;
+  width: 90px;
+  height: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  font-weight: 700;
+  text-transform: uppercase;
+}

@@ -1,0 +1,11 @@
+@import 'colors';
+@import 'mixins';
+@import 'sizes';
+
+.title {
+  @include primaryText;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+}

@@ -1,0 +1,133 @@
+@import 'colors';
+@import 'mixins';
+@import 'sizes';
+
+.header {
+  @include primaryText;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: $primary;
+
+  &Inner {
+    width: 100%;
+    max-width: $laptop;
+    height: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5px;
+
+    @media screen and (min-width: $laptop) {
+      padding: 0;
+    }
+  }
+
+  &Link {
+    display: block;
+    padding: 5px 20px;
+    color: $white;
+    font-size: 12px;
+    font-weight: 700;
+
+    &:hover {
+      text-decoration: underline;
+      color: darken($white, 20);
+    }
+
+    @media screen and (min-width: $mobileL) {
+      font-size: 14px;
+    }
+    @media screen and (min-width: $tablet) {
+      font-size: 16px;
+    }
+    @media screen and (min-width: $tablet) {
+      font-size: 18px;
+    }
+  }
+}
+
+.main {
+  min-height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer {
+  @include primaryText;
+  color: $white;
+  height: 100px;
+  width: 100%;
+  background-color: $darkGray;
+  &Inner {
+    width: 100%;
+    height: 100%;
+    max-width: $laptop;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      text-align: center;
+      font-size: 12px;
+      margin-bottom: 5px;
+
+      @media screen and (min-width: $mobileL) {
+        font-size: 16px;
+      }
+    }
+
+    a {
+      font-size: 12px;
+
+      @media screen and (min-width: $mobileL) {
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.section {
+  width: 100%;
+  max-width: $mobileL;
+}
+
+.btn {
+  &Row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+  }
+
+  &Primary,
+  &Secondary {
+    @include primaryText;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    color: $white;
+    text-transform: capitalize;
+  }
+
+  &Primary {
+    background-color: $primary;
+    &:hover {
+      background-color: darken($primary, 10);
+    }
+  }
+  &Secondary {
+    background-color: $secondary;
+    &:hover {
+      background-color: darken($secondary, 10);
+    }
+  }
+}

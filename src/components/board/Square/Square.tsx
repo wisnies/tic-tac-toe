@@ -1,0 +1,17 @@
+import styles from '../../../styles/Game.module.scss';
+
+type SquareProps = {
+  handleClick: () => void;
+  symbol: 'x' | 'o' | null;
+};
+
+export const Square: React.FC<SquareProps> = ({
+  handleClick,
+  symbol,
+}: SquareProps) => {
+  return (
+    <button onClick={() => handleClick()} className={styles.square}>
+      {symbol === null ? '' : symbol}
+    </button>
+  );
+};
