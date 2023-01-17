@@ -9,7 +9,7 @@ export const RouteViews: React.FC = () => {
     <main className={styles.main}>
       <Routes>
         <Route index path='/' element={<HomePage />} />
-        <Route path='/play/:against' element={<GamePage />} />
+        <Route path='/play/:opponent' element={<GamePage />} />
         <Route path='*' element={<HomePage />} />
       </Routes>
     </main>

@@ -1,39 +1,28 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { useGameContext } from '../../../context/gameContext';
-import Grid from '../../board/Grid';
-import Square from '../../board/Square';
+import Board from '../../game/Board';
+import Controlls from '../../game/Controlls';
+import Details from '../../game/Details';
 
 export const GamePage: React.FC = () => {
-  const { against } = useParams();
-  const navigate = useNavigate();
+  const { opponent } = useParams();
 
-  const {
-    board,
-    handleSquareClick,
-    gameEnded,
-    winner,
-    restartGame,
-    beginningPlayer,
-    currentPlayer,
-  } = useGameContext();
+  const { setVs } = useGameContext();
+
+  useEffect(() => {
+    if (opponent === 'player') {
+      setVs('h');
+    } else {
+      setVs('c');
+    }
+  }, [opponent, setVs]);
+
   return (
     <>
-      <p>BeginningPlayer: {beginningPlayer}</p>
-      <p>Current player: {currentPlayer}</p>
-      <Grid>
-        {board.map((symbol, i) => (
-          <Square
-            key={i}
-            handleClick={() => {
-              handleSquareClick(i);
-            }}
-            symbol={symbol}
-          />
-        ))}
-      </Grid>
-      <p>Game ended: {JSON.stringify(gameEnded)}</p>
-      <p>Game result: {winner}</p>
-      <button onClick={restartGame}>restart</button>
+      <Board />
+      <Details />
+      <Controlls />
     </>
   );
 };

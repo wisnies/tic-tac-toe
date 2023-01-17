@@ -10,7 +10,10 @@ export const Square: React.FC<SquareProps> = ({
   symbol,
 }: SquareProps) => {
   return (
-    <button onClick={() => handleClick()} className={styles.square}>
+    <button
+      onClick={() => handleClick()}
+      className={symbol === 'x' ? styles.squareX : styles.squareO}
+    >
       {symbol === null ? '' : symbol}
     </button>
   );
