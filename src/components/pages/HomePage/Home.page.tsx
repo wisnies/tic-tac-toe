@@ -11,7 +11,6 @@ export const HomePage: React.FC = () => {
   }, [resetGame]);
   return (
     <section className={styles.section}>
-      LOGO
       <h3 className={typography.title}>Play Versus:</h3>
       <div className={styles.btnRow}>
         <Link to='/play/player' className={styles.btnPrimary}>

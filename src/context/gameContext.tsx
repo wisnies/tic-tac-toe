@@ -85,6 +85,15 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
       setP1('o');
       setP2('x');
     }
+
+    const flag = Math.random() > 0.5 ? true : false;
+    if (flag) {
+      setBeginningPlayer(p1);
+      setCurrentPlayer(p1);
+    } else {
+      setBeginningPlayer(p2);
+      setCurrentPlayer(p2);
+    }
     setGameCanStart(true);
   };
 
@@ -136,9 +145,10 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
     return arr[Math.floor(Math.random() * arr.length)];
   };
   const handleComputerMove = () => {
-    const isP2Turn = isPlayerTurn(p2);
     const emptySquares = getEmptySquares();
+    const isP2Turn = isPlayerTurn(p2);
     if (isP2Turn && gameCanStart && !gameEnded) {
+      console.log('c');
       let computerMove = emptySquares[
         Math.floor(Math.random() * emptySquares.length)
       ] as number;
@@ -164,11 +174,21 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
           newPmArr = pc1.filter((line) => !line.includes(2));
           newPmArr = pc1.filter((line) => !line.includes(6));
           newPmArr = pc1.filter((line) => !line.includes(8));
-          const newPmArr1 = randomArrElement(newPmArr).filter(
-            (i: number) => board[i] === null
-          );
-          computerMove = randomArrElement(newPmArr1);
+          if (newPmArr.length > 0) {
+            const newPmArr1 = randomArrElement(newPmArr).filter(
+              (i: number) => board[i] === null
+            );
+            computerMove = randomArrElement(newPmArr1);
+          }
         }
+      }
+
+      const bc2 = checkWinCondition([p1, p1, null]);
+      if (bc2.length > 0) {
+        const bcArr = randomArrElement(bc2).filter(
+          (i: number) => board[i] === null
+        );
+        computerMove = randomArrElement(bcArr);
       }
 
       const pc2 = checkWinCondition([p2, p2, null]);
@@ -177,13 +197,6 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
           (i: number) => board[i] === null
         );
         computerMove = randomArrElement(pmArr);
-      }
-      const bc2 = checkWinCondition([p1, p1, null]);
-      if (bc2.length > 0) {
-        const bcArr = randomArrElement(bc2).filter(
-          (i: number) => board[i] === null
-        );
-        computerMove = randomArrElement(bcArr);
       }
 
       if (emptySquares.includes(computerMove)) {
@@ -210,6 +223,10 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
     setGameEnded(false);
     setGameCanStart(false);
     setWinner(null);
+    setCurrentPlayer('x');
+    setBeginningPlayer('x');
+    setP1('x');
+    setP2('o');
   }, []);
 
   return (

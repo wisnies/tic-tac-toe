@@ -4,6 +4,7 @@ import Square from '../../board/Square';
 
 export const Board: React.FC = () => {
   const { board, handleSquareClick } = useGameContext();
+
   return (
     <Grid>
       {board.map((symbol, i) => (
