@@ -1,6 +1,7 @@
 export interface iGameContext {
   board: ('x' | 'o' | null)[];
   handleSquareClick: (i: number) => void;
+  handleComputerMove: () => void;
   gameCanStart: boolean;
   gameEnded: boolean;
   winner: 'x' | 'o' | 'd' | null;

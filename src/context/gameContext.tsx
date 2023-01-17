@@ -56,9 +56,7 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
     newBoard[i] = p;
     setBoard(newBoard);
   };
-  const checkWinCondition = (
-    p: [PlayerSymbol, PlayerSymbol, PlayerSymbol]
-  ): number[][] => {
+  const checkWinCondition = (p: [Symbols, Symbols, Symbols]): number[][] => {
     return winConditions.filter((c) => {
       const boardState = c.map((i) => board[i]);
       const testedCondition = JSON.stringify(p.sort());
@@ -125,9 +123,71 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
         checkForWinner();
       }
     }
-    if (isP2Turn && gameCanStart && !gameEnded) {
+    if (isP2Turn && gameCanStart && !gameEnded && vs === 'h') {
       if (emptySquares.includes(i)) {
         handleMove(p2, i);
+        setCurrentPlayer(p1);
+        checkForWinner();
+      }
+    }
+  };
+
+  const randomArrElement = (arr: any[]) => {
+    return arr[Math.floor(Math.random() * arr.length)];
+  };
+  const handleComputerMove = () => {
+    const isP2Turn = isPlayerTurn(p2);
+    const emptySquares = getEmptySquares();
+    if (isP2Turn && gameCanStart && !gameEnded) {
+      let computerMove = emptySquares[
+        Math.floor(Math.random() * emptySquares.length)
+      ] as number;
+
+      const bc1 = checkWinCondition([p1, null, null]);
+      if (bc1.length > 0) {
+        const bcArr = randomArrElement(bc1).filter(
+          (i: number) => board[i] === null
+        );
+        computerMove = randomArrElement(bcArr);
+        if (bc1.length === 3 && emptySquares.length === 8) {
+          computerMove = 4;
+        }
+      }
+      const pc1 = checkWinCondition([p2, null, null]);
+      if (pc1.length > 0) {
+        const pmArr = randomArrElement(pc1).filter(
+          (i: number) => board[i] === null
+        );
+        computerMove = randomArrElement(pmArr);
+        if (emptySquares.length === 6) {
+          let newPmArr = pc1.filter((line) => !line.includes(0));
+          newPmArr = pc1.filter((line) => !line.includes(2));
+          newPmArr = pc1.filter((line) => !line.includes(6));
+          newPmArr = pc1.filter((line) => !line.includes(8));
+          const newPmArr1 = randomArrElement(newPmArr).filter(
+            (i: number) => board[i] === null
+          );
+          computerMove = randomArrElement(newPmArr1);
+        }
+      }
+
+      const pc2 = checkWinCondition([p2, p2, null]);
+      if (pc2.length > 0) {
+        const pmArr = randomArrElement(pc2).filter(
+          (i: number) => board[i] === null
+        );
+        computerMove = randomArrElement(pmArr);
+      }
+      const bc2 = checkWinCondition([p1, p1, null]);
+      if (bc2.length > 0) {
+        const bcArr = randomArrElement(bc2).filter(
+          (i: number) => board[i] === null
+        );
+        computerMove = randomArrElement(bcArr);
+      }
+
+      if (emptySquares.includes(computerMove)) {
+        handleMove(p2, computerMove);
         setCurrentPlayer(p1);
         checkForWinner();
       }
@@ -157,6 +217,7 @@ export const GameContextProvider = ({ children }: GameContextProviderProps) => {
       value={{
         board,
         handleSquareClick,
+        handleComputerMove,
         gameCanStart,
         gameEnded,
         winner,

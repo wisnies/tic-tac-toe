@@ -8,15 +8,16 @@ import Details from '../../game/Details';
 export const GamePage: React.FC = () => {
   const { opponent } = useParams();
 
-  const { setVs } = useGameContext();
+  const { setVs, handleComputerMove } = useGameContext();
 
   useEffect(() => {
     if (opponent === 'player') {
       setVs('h');
     } else {
       setVs('c');
+      handleComputerMove();
     }
-  }, [opponent, setVs]);
+  }, [opponent, setVs, handleComputerMove]);
 
   return (
     <>

@@ -22,7 +22,9 @@ export const Details: React.FC = () => {
             <p className={p1 === 'x' ? styles.playerX : styles.playerO}>{p1}</p>
           </div>
           <div className={styles.detailsCol}>
-            <p className={styles.playerText}>playerTwo as:</p>
+            <p className={styles.playerText}>
+              {vs === 'c' ? 'computer' : 'plyerTwo'} as:
+            </p>
             <p className={p2 === 'x' ? styles.playerX : styles.playerO}>{p2}</p>
           </div>
         </div>
